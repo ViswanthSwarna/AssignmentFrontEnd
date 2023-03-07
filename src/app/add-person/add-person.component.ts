@@ -1,8 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { environment } from 'src/app/app.environment';
+import { PersonService } from '../services/person.service';
 
 @Component({
   selector: 'app-add-person',
@@ -15,7 +14,7 @@ export class AddPersonComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private http: HttpClient,
+    private personService: PersonService,
     private router: Router,
     private route: ActivatedRoute
   ) {}
@@ -34,8 +33,7 @@ export class AddPersonComponent implements OnInit {
       homeAddress: this.fb.control('', Validators.required),
     });
     if (this.updateId != 0) {
-      this.http
-        .get(environment.urlToGetPersonById + this.updateId)
+      this.personService.getPersonById(this.updateId)
         .subscribe({
           next: (x) => this.onGetSuccess(x),
           error: (x) => this.onError(x),
@@ -63,6 +61,7 @@ export class AddPersonComponent implements OnInit {
   }
 
   onSubmit(form: FormGroup) {
+
     var personApiBody: any = {};
     personApiBody.firstName = form.value.firstName;
     personApiBody.lastName = form.value.lastName;
@@ -70,20 +69,19 @@ export class AddPersonComponent implements OnInit {
     personApiBody.homeAddress = form.value.homeAddress;
     personApiBody.phoneNumber = form.value.phoneNumber;
     personApiBody.email = form.value.email;
+
     if (this.updateId == 0) {
-      this.http
-        .post(environment.apiUrl, personApiBody)
+      this.personService.createPerson(personApiBody)
         .subscribe({
-          next: (x) => this.onSuccess(x),
-          error: (x) => this.onError(x),
+          next: (response) => this.onSuccess(response),
+          error: (response) => this.onError(response),
         });
     } else {
       personApiBody.id = this.updateId;
-      this.http
-        .put(environment.apiUrl, personApiBody)
+      this.personService.updatePerson(personApiBody)
         .subscribe({
-          next: (x) => this.onSuccess(x),
-          error: (x) => this.onError(x),
+          next: (response) => this.onSuccess(response),
+          error: (response) => this.onError(response),
         });
     }
   }
