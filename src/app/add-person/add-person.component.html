@@ -1,0 +1,51 @@
+<form  class="d-flex flex-column align-items-center form-group"[formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
+  <div scope = 'col' class="d-flex flex-column ">
+    <label>
+      First Name:
+      <input  class="form-control" formControlName="firstName" placeholder="first name" />
+    </label>
+    <span class ="error-message" *ngIf = "firstName && firstName.invalid && firstName.touched">First Name is required</span>
+  </div>
+  <div scope = 'col' class="d-flex flex-column ">
+    <label>
+      Last Name:
+      <input class="form-control" formControlName="lastName" placeholder="last name" />
+    </label>
+    <span class ="error-message" *ngIf = "lastName && lastName.invalid && lastName.touched">Last Name is required</span>
+  </div>
+  <div scope = 'col' class="d-flex flex-column ">
+    <label>
+      Email:
+      <input class="form-control" formControlName="email" type="email" placeholder="username@email.com" />
+    </label>
+    <span class ="error-message" *ngIf = "email && email.invalid && email.touched">Valid Email is required</span>
+  </div>
+  <div scope = 'col' class="d-flex flex-column ">
+    <label>
+      Phone Number:
+      <input class="form-control" formControlName="phoneNumber" placeholder="phone number" />
+    </label>
+    <span class ="error-message" *ngIf = "phoneNumber && phoneNumber.invalid && phoneNumber.touched">10 Digit phone number is required</span>
+  </div>
+  <div scope = 'col' class="d-flex flex-column ">
+    <label>
+      Home Address:
+      <input class="form-control" formControlName="homeAddress" placeholder="home address" />
+    </label>
+    <span class ="error-message" *ngIf = "homeAddress && homeAddress.invalid && homeAddress.touched">Home Address is required</span>
+  </div>
+  <div scope = 'col' class="d-flex flex-column ">
+    <label>
+      City:
+      <select  class="form-control" formControlName="city" dropdown>
+        <option value="Hyderabad">Hyderabad</option>
+        <option value="Mumbai">Mumbai</option>
+        <option value="Bangalore">Bangalore</option>
+        <option value="Delhi">Delhi</option>
+      </select>
+    </label>
+    <span class ="error-message" *ngIf = "city && city.invalid && city.touched">City is required</span>
+  </div>
+  <br/>
+  <button class = "btn btn-primary" [disabled]="myForm.invalid" type="submit">Save</button>
+</form>

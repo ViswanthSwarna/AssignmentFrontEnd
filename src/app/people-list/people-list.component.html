@@ -1,0 +1,34 @@
+<br />
+<div class="d-flex flex-column align-items-center  form-group">
+<br />
+<table class="align-items-center table table-striped">
+  <thead>
+  <tr>
+    <th>No.</th>
+    <th>FirstName</th>
+    <th>LastName</th>
+    <th>Phone Number</th>
+    <th>Email</th>
+    <th>City</th>
+    <th>Home Address</th>
+    <th>Action</th>
+  </tr>
+</thead>
+<tbody>
+  <tr *ngFor="let candidate of peopleList; let i = index">
+    <td>{{i+1}}</td>
+    <td>{{ candidate.firstName }}</td>
+    <td>{{ candidate.lastName }}</td>
+    <td>{{ candidate.phoneNumber }}</td>
+    <td>{{ candidate.email }}</td>
+    <td>{{ candidate.city }}</td>
+    <td>{{ candidate.homeAddress }}</td>
+    <td>
+      <button class = "btn btn-link" [routerLink]="['/addoredit', candidate.id]">Edit</button>
+      <button class = "btn btn-link" (click)="delete(candidate.id)">Delete</button>
+    </td>
+  </tr>
+</tbody>
+</table>
+</div>
+<button [routerLink]="['/addoredit', 0]" class = "btn btn-primary float-right">Create</button>
